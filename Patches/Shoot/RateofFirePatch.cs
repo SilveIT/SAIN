@@ -2,11 +2,11 @@
 using EFT.InventoryLogic;
 using HarmonyLib;
 using SAIN.Components;
-using SPT.Reflection.Patching;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using UnityEngine;
 using static SAIN.Helpers.Shoot;
-using WeaponAIPresetManager = GClass440; // Contains property WeaponAIPreset
+using WeaponAIPresetManager = GClass401; // Contains property WeaponAIPreset
 
 namespace SAIN.Patches.Shoot.RateOfFire
 {
@@ -17,6 +17,11 @@ namespace SAIN.Patches.Shoot.RateOfFire
         protected override MethodBase GetTargetMethod()
         {
             _ShootData = AccessTools.Property(typeof(BotOwner), "ShootData");
+            //public void method_6()
+            //{
+            //    float num = this._owner.WeaponManager.WeaponAIPreset.TriggerDownTime();
+            //    this.nextFingerUpTime = Time.time + num;
+            //}
             return AccessTools.Method(_ShootData.PropertyType, "method_6");
         }
 
@@ -54,6 +59,10 @@ namespace SAIN.Patches.Shoot.RateOfFire
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public float method_1()
+            //{
+            //    return this.botGlobalShootData_0.WAIT_NEXT_SINGLE_SHOT;
+            //}
             return AccessTools.Method(typeof(WeaponAIPresetManager), "method_1");
         }
 
@@ -75,6 +84,10 @@ namespace SAIN.Patches.Shoot.RateOfFire
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public float method_6()
+            //{
+            //    return this.gclass535_0.CurrentHoldDownAutoFire * GClass766.Random(0.7f, 1.3f);
+            //}
             return AccessTools.Method(typeof(WeaponAIPresetManager), "method_6");
         }
 
@@ -96,6 +109,10 @@ namespace SAIN.Patches.Shoot.RateOfFire
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public float method_0()
+            //{
+            //    return this.gclass535_0.CurrentHoldDownSingleShot;
+            //}
             return AccessTools.Method(typeof(WeaponAIPresetManager), "method_0");
         }
 

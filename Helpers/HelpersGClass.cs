@@ -1,13 +1,14 @@
 ﻿using EFT;
 using HarmonyLib;
 using Newtonsoft.Json;
-using SPT.Reflection.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using EFTCore = GClass583;
-using EFTStatModifiersClass = GClass580;
+using Aki.Reflection.Utils;
+using EFTCore = GClass537;
+using EFTStatModifiersClass = GClass534;
+using BotDifficultySettingsClass = Settings9;
 
 ////////
 // Fixed some GClass References here, but classes were renamed in the deobfuscation, so much of this isn't necessary anymore. Need to clean this up
@@ -44,9 +45,9 @@ namespace SAIN.Helpers
             return (BotSettingsComponents)SAINPlugin.LoadedPreset.BotSettings.GetEFTSettings(type, difficulty);
         }
 
-        public static PathControllerClass GetPathControllerClass(BotMover botMover)
+        public static PathController GetPathControllerClass(BotMover botMover)
         {
-            return (PathControllerClass)PathControllerField.GetValue(botMover);
+            return (PathController)PathControllerField.GetValue(botMover);
         }
 
         public static float LAY_DOWN_ANG_SHOOT => EFTCore.Core.LAY_DOWN_ANG_SHOOT;

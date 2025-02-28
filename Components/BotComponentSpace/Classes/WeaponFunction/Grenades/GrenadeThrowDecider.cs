@@ -2,7 +2,8 @@
 using SAIN.Preset;
 using SAIN.SAINComponent.Classes.EnemyClasses;
 using UnityEngine;
-using GrenadeThrowChecker = GClass541;
+using GrenadeThrowChecker = GClass499;
+using ThrowWeapItemClass = GrenadeClass;
 
 namespace SAIN.SAINComponent.Classes.WeaponFunction
 {

@@ -1,5 +1,4 @@
-﻿using SPT.Reflection.Patching;
-using EFT;
+﻿using EFT;
 using EFT.UI.Ragfair;
 using HarmonyLib;
 using SAIN.SAINComponent;

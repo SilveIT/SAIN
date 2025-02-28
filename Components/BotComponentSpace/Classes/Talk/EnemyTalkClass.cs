@@ -12,6 +12,7 @@ using SAIN.SAINComponent.Classes.EnemyClasses;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using BotEventHandler = GClass603;
 
 namespace SAIN.SAINComponent.Classes.Talk
 {
@@ -315,7 +316,7 @@ namespace SAIN.SAINComponent.Classes.Talk
             }
             if (_nextGestureTime < Time.time) {
                 _nextGestureTime = Time.time + 6f;
-                Player.HandsController.ShowGesture(EInteraction.FriendlyGesture);
+                Player.HandsController.ShowGesture(EGesture.Hello);
                 Bot.Steering.LookToPoint(sourcePlayer.Position + Vector3.up * 1.4f);
             }
             Bot.Talk.Say(trigger, mask, false);

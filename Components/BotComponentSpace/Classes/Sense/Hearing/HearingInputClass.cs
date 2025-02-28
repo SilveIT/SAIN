@@ -7,6 +7,7 @@ using SAIN.Helpers;
 using SAIN.SAINComponent.Classes.EnemyClasses;
 using UnityEngine;
 using static RootMotion.FinalIK.InteractionTrigger;
+using EftBulletClass = Shot;
 
 namespace SAIN.SAINComponent.Classes
 {

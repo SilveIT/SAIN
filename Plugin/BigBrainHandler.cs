@@ -1,5 +1,4 @@
-﻿using SPT.Reflection.Patching;
-using Comfort.Common;
+﻿using Comfort.Common;
 using Dissonance;
 using DrakiaXYZ.BigBrain.Brains;
 using EFT;

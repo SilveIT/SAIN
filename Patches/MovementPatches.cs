@@ -3,10 +3,12 @@ using EFT;
 using EFT.Interactive;
 using HarmonyLib;
 using SAIN.Preset.GlobalSettings;
-using SPT.Reflection.Patching;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using UnityEngine;
-using PathFinderClass = GClass470;
+using PathFinderClass = GClass428;
+using BasePhysicalClass = Physical;
+using PlayerPhysicalClass = GPhysical;
 
 namespace SAIN.Patches.Movement
 {
@@ -77,6 +79,9 @@ namespace SAIN.Patches.Movement
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public bool method_0(Vector3 pos, bool slowAtTheEnd, bool getUpWithCheck)
+            //{
+            //    if (this.botOwner_0.BotLay.IsLay)
             return AccessTools.Method(typeof(PathFinderClass), "method_0");
         }
 
@@ -205,6 +210,14 @@ namespace SAIN.Patches.Movement
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public void method_3(EDoorState state, bool force = false)
+            //if (!this.CanStartInteraction(state, true))
+            //{
+            //    if (this._interaction.IsInProgress || this.DoorState != EDoorState.Interacting)
+            //        return;
+            //    this.DoorState = this.FallbackState;
+            //}
+            //else
             return AccessTools.Method(typeof(WorldInteractiveObject), "method_3");
         }
 

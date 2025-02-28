@@ -3,12 +3,13 @@ using EFT;
 using HarmonyLib;
 using SAIN.Components;
 using SAIN.SAINComponent.Classes;
-using SPT.Reflection.Patching;
 using System;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using UnityEngine;
 using static EFT.Player;
-using GrenadeFinishResult = GInterface145;
+//using GrenadeFinishResult = GInterface145;
+using ThrowWeapItemClass = GrenadeClass;
 
 namespace SAIN.Patches.Shoot.Grenades
 {
@@ -16,6 +17,12 @@ namespace SAIN.Patches.Shoot.Grenades
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public void method_3(GrenadeClass potentialGrenade)
+            //{
+            //    this.grenade = potentialGrenade;
+            //    this.Mass = this.grenade.Weight;
+            //    this.Mass = 0.6f;
+            //}
             return AccessTools.Method(typeof(BotGrenadeController), "method_3");
         }
 
@@ -37,6 +44,8 @@ namespace SAIN.Patches.Shoot.Grenades
     {
         protected override MethodBase GetTargetMethod()
         {
+            //float grenadePrecision = this.botOwner_0.Settings.FileSettings.Grenade.GrenadePrecision;
+            //if (grenadePrecision > 0f)
             return AccessTools.Method(typeof(BotGrenadeController), "method_0");
         }
 
@@ -55,6 +64,17 @@ namespace SAIN.Patches.Shoot.Grenades
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public void method_2()
+            //{
+            //    List<GrenadeClass> list = this.botOwner_0.GetPlayer.GClass2772_0.Inventory.GetPlayerItems(EPlayerItems.Equipment).OfType<GrenadeClass>().ToList<GrenadeClass>();
+            //    foreach (GrenadeClass grenadeClass in list)
+            //    {
+            //        if (grenadeClass.ThrowType == ThrowWeapType.frag_grenade)
+            //        {
+            //            this.method_3(grenadeClass);
+            //            return;
+            //        }
+            //    }
             return AccessTools.Method(typeof(BotGrenadeController), "method_2");
         }
 
@@ -90,7 +110,15 @@ namespace SAIN.Patches.Shoot.Grenades
             if (__instance.ThrowindNow == true) {
                 return false;
             }
-            __instance.method_5();
+            //public bool method_4()
+            //{
+            //if (this.AIGreanageThrowData != null)
+            //{
+            //    if (this.AIGreanageThrowData.Force < 0.01f)
+            //    {
+            //        return true;
+            //    }
+            __instance.method_4();
             switch (___GrenadeActionType) {
                 case GrenadeActionType.ready: {
 						____checkStop = true;
@@ -98,12 +126,23 @@ namespace SAIN.Patches.Shoot.Grenades
 						___GrenadeActionType = GrenadeActionType.change2grenade;
 						if (___grenade == null)
 						{
-							__instance.method_6(null);
+                            //public void method_6(GrenadeClass grenade = null)
+                            //{
+                            //    this.ThrowindNow = false;
+                            //    this.method_0();
+                            //    this._clearTime = 0f;
+                            //    this._checkStop = false;
+                            //    this.GrenadeActionType = GrenadeActionType.ready;
+                            __instance.method_6(null);
 							return false;
 						}
 						if (__instance.AIGreanageThrowData.GrenadeType != null)
 						{
-							__instance.method_1(__instance.AIGreanageThrowData.GrenadeType.Value);
+                            //public void method_1(ThrowWeapType grenadeType)
+                            //{
+                            //    using (IEnumerator<Item> enumerator = this.botOwner_0.GetPlayer.GClass2772_0.Inventory.GetPlayerItems(EPlayerItems.Equipment).Where(new Func<Item, bool>(BotGrenadeController.Class165.class165_0.method_1)).GetEnumerator())
+                            //    {
+                            __instance.method_1(__instance.AIGreanageThrowData.GrenadeType.Value);
 						}
 						BotPersonalStats botPersonalStats = ___botOwner_0.BotPersonalStats;
 						if (botPersonalStats != null)

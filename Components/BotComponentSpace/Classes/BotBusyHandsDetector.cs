@@ -2,11 +2,13 @@
 using EFT;
 using EFT.InventoryLogic;
 using HarmonyLib;
+using SAIN.Helpers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static EFT.Player;
 using HandEvent = GEventArgs1;
+using InteractionsHandlerClass = ItemMovementHandler;
 
 namespace SAIN.SAINComponent.Classes
 {
@@ -141,7 +143,8 @@ namespace SAIN.SAINComponent.Classes
 
         private void collectQueEvents()
         {
-            InventoryController inventoryController = Player.InventoryController;
+            //InventoryController inventoryController = (InventoryController)HelpersGClass.InventoryControllerProp.GetValue(Player);
+            InventoryControllerClass inventoryController = Player.GClass2772_0;
             if (inventoryController == null)
             {
                 Logger.LogError("FixHandsController: could not find '_inventoryController'");
@@ -187,7 +190,8 @@ namespace SAIN.SAINComponent.Classes
         // Credit to Lacyway's "Hands are Not Busy" mod https://github.com/Lacyway/HandsAreNotBusy/blob/main/HANB_Component.cs
         private static void resetHandsController(Player player)
         {
-            InventoryController inventoryController = player.InventoryController;
+            //InventoryController inventoryController = (InventoryController)HelpersGClass.InventoryControllerProp.GetValue(Player);
+            InventoryControllerClass inventoryController = player.GClass2772_0;
             if (inventoryController == null)
             {
                 Logger.LogError("FixHandsController: could not find '_inventoryController'");
@@ -209,14 +213,14 @@ namespace SAIN.SAINComponent.Classes
 
             if (handsController is FirearmController currentFirearmController)
             {
-				player.MovementContext.OnStateChanged -= currentFirearmController.method_17;
-				player.Physical.OnSprintStateChangedEvent -= currentFirearmController.method_16;
-				currentFirearmController.RemoveBallisticCalculator();
+				player.MovementContext.OnStateChanged -= currentFirearmController.method_14; //if (!EFTHardSettings.Instance.CanAimInState(nextstate))
+                player.Physical.OnSprintStateChangedEvent -= currentFirearmController.method_13; //if (this.IsAiming && value)
+                currentFirearmController.RemoveBallisticCalculator();
 			}
 
             try
             {
-                player.SpawnController(player.method_127());
+                player.SpawnController(player.method_109()); //return Player.EmptyHandsController.smethod_5<Player.EmptyHandsController>(this);
             }
             catch (Exception ex)
             {
@@ -233,7 +237,7 @@ namespace SAIN.SAINComponent.Classes
             else
             {
                 player.ProcessStatus = EProcessStatus.None;
-                player.SetFirstAvailableItem(PlayerOwner.Class1643.class1643_0.method_0);
+                player.SetFirstAvailableItem(PlayerOwner.Class1520.class1520_0.method_0); //Empty callback Result<IHandsController> result
             }
 
             player.SetInventoryOpened(false);

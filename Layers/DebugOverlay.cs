@@ -16,6 +16,10 @@ namespace SAIN.Layers
     {
         static DebugOverlay()
         {
+            //public override string ToString()
+            //{
+            //    return (this.float_5 / this.float_7).ToString("0.00") + " %  " + this.aimStatus_0;
+            //}
             TimeToAim = AccessTools.Field(Helpers.HelpersGClass.AimDataType, "float_7");
             timeAiming = AccessTools.Field(Helpers.HelpersGClass.AimDataType, "float_5");
 

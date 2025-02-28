@@ -1,10 +1,10 @@
-﻿using SPT.Reflection.Patching;
-using EFT;
+﻿using EFT;
 using HarmonyLib;
 using SAIN.Components;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using SAIN.SAINComponent;
 using SAIN.SAINComponent.Classes.Decision;
 using SAIN.SAINComponent.Classes.Talk;
@@ -39,8 +39,21 @@ namespace SAIN.Patches.Talk
     public class JumpPainPatch : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
-        {
-            return AccessTools.Method(typeof(Player), nameof(Player.method_117));
+        { 
+            //public void method_99(EPlayerState previousState, EPlayerState nextState)
+            //{
+            //    this.Pedometer.CurrentState = nextState;
+            //    switch (nextState)
+            //    {
+            //        case EPlayerState.ProneMove:
+            //            this.MovementContext.CheckGroundedRayDistance = 0.08f;
+            //            this.Pedometer.MakeMark(EPlayerState.ProneMove);
+            //            break;
+            //        case EPlayerState.Run:
+            //            this.MovementContext.CheckGroundedRayDistance = 0.08f;
+            //            this.Pedometer.MakeMark(EPlayerState.Run);
+            //            break;
+            return AccessTools.Method(typeof(Player), nameof(Player.method_99));
         }
 
         [PatchPrefix]
@@ -67,14 +80,14 @@ namespace SAIN.Patches.Talk
         }
 
         [PatchPrefix]
-        public static bool PatchPrefix(Player __instance, EPhraseTrigger phrase, ETagStatus mask, bool aggressive)
+        public static bool PatchPrefix(Player __instance, EPhraseTrigger @event, ETagStatus mask, bool aggressive)
         {
-            switch (phrase) {
+            switch (@event) {
                 case EPhraseTrigger.OnDeath:
                 case EPhraseTrigger.OnBeingHurt:
                 case EPhraseTrigger.OnAgony:
                 case EPhraseTrigger.OnBreath:
-                    SAINBotController.Instance?.BotHearing.PlayerTalked(phrase, mask, __instance);
+                    SAINBotController.Instance?.BotHearing.PlayerTalked(@event, mask, __instance);
                     return true;
 
                 default:
@@ -84,13 +97,13 @@ namespace SAIN.Patches.Talk
             if (__instance.IsAI) {
                 if (SAINPlugin.LoadedPreset.GlobalSettings.Talk.DisableBotTalkPatching ||
                     SAINPlugin.IsBotExluded(__instance.AIData?.BotOwner)) {
-                    SAINBotController.Instance?.BotHearing.PlayerTalked(phrase, mask, __instance);
+                    SAINBotController.Instance?.BotHearing.PlayerTalked(@event, mask, __instance);
                     return true;
                 }
                 return false;
             }
 
-            SAINBotController.Instance?.BotHearing.PlayerTalked(phrase, mask, __instance);
+            SAINBotController.Instance?.BotHearing.PlayerTalked(@event, mask, __instance);
             return true;
         }
     }

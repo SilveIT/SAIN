@@ -43,7 +43,16 @@ namespace SAIN.Components
             if (shallInvert)
                 door.OpenAngle = -door.OpenAngle;
 
-            door.SetDoorState(state);
+            //door.SetDoorState(state); //orig
+            //public void method_3(EDoorState state, bool force = false)
+            //{
+            //    if (!this.CanStartInteraction(state, true))
+            //    {
+            //        if (this._interaction.IsInProgress || this.DoorState != EDoorState.Interacting)
+            //            return;
+            //        this.DoorState = this.FallbackState;
+            //    }
+            door.method_3(state); //TODO review force door opening
             OnDoorStateChanged?.Invoke(door, state, shallInvert);
 
             if (shallInvert)

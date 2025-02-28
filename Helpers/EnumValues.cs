@@ -36,7 +36,7 @@ namespace SAIN.Helpers
 
             public static bool IsPMC(WildSpawnType type)
             {
-                return type == WildSpawnType.pmcUSEC || type == WildSpawnType.pmcBEAR;
+                return type == WildSpawnType.sptUsec || type == WildSpawnType.sptBear;
             }
 
             public static bool IsGoons(WildSpawnType type)

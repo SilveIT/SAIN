@@ -4,11 +4,11 @@ using HarmonyLib;
 using SAIN.Components;
 using SAIN.Components.BotController;
 using SAIN.Helpers;
-using SPT.Reflection.Patching;
 using System;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using UnityEngine;
-using EFTSettingsLoadClass = GClass583;
+using EFTCore = GClass537;
 
 namespace SAIN.Patches.Components
 {
@@ -16,6 +16,11 @@ namespace SAIN.Patches.Components
 	{
 		protected override MethodBase GetTargetMethod()
 		{
+            //}
+			//catch (Exception ex)
+			//{
+			//    this.BotState = EBotState.ActiveFail;
+			//}
 			return AccessTools.Method(typeof(BotOwner), nameof(BotOwner.method_10));
 		}
 
@@ -135,7 +140,7 @@ namespace SAIN.Patches.Components
 	{
 		protected override MethodBase GetTargetMethod()
 		{
-			return AccessTools.Method(typeof(EFTSettingsLoadClass), nameof(EFTSettingsLoadClass.Load));
+			return AccessTools.Method(typeof(EFTCore), nameof(EFTCore.Load));
 		}
 
 		[PatchPostfix]

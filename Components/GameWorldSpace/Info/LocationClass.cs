@@ -1,5 +1,8 @@
-﻿using UnityEngine;
-using SeasonController = Class442;
+﻿using Comfort.Common;
+using EFT;
+using UnityEngine;
+using SeasonController = WinterEventController;
+using ESeason = EWinterStatus;
 
 namespace SAIN.Components
 {
@@ -38,11 +41,12 @@ namespace SAIN.Components
             }
             _nextCheckWeatherTime = Time.time + 0.5f;
 
-            if (SeasonController.Controller == null) {
+            var gw = Singleton<GameWorld>.Instance;
+            if (gw.Class427_0 == null) {
                 return;
             }
 
-            Season = SeasonController.Controller.Season;
+            Season = gw.Class427_0.Status;
             Logger.LogDebug($"Got Season {Season}");
             _weatherFound = true;
         }

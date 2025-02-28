@@ -119,8 +119,8 @@ namespace SAIN.Preset
                 new BotType{ WildSpawnType = WildSpawnType.assault,                 Name = "Scav",                     Section = "Scavs" ,       Description = "Scavs!" },
                 new BotType{ WildSpawnType = WildSpawnType.assaultGroup,            Name = "Scav Group",               Section = "Scavs" ,       Description = "Scavs in a Group!" },
                 new BotType{ WildSpawnType = WildSpawnType.crazyAssaultEvent,       Name = "Crazy Scav Event",         Section = "Scavs" ,       Description = "Scavs!" },
-                new BotType{ WildSpawnType = WildSpawnType.pmcUSEC,                 Name = "Usec",                     Section = "PMCs" ,        Description = "A PMC of the Usec Faction" },
-                new BotType{ WildSpawnType = WildSpawnType.pmcBEAR,                 Name = "Bear",                     Section = "PMCs" ,        Description = "A PMC of the Bear Faction" },
+                new BotType{ WildSpawnType = WildSpawnType.sptUsec,                 Name = "Usec",                     Section = "PMCs" ,        Description = "A PMC of the Usec Faction" },
+                new BotType{ WildSpawnType = WildSpawnType.sptBear,                 Name = "Bear",                     Section = "PMCs" ,        Description = "A PMC of the Bear Faction" },
                 new BotType{ WildSpawnType = WildSpawnType.marksman,                Name = "Scav Sniper",              Section = "Scavs" ,       Description = "The Scav Snipers that spawn on rooftops on certain maps" },
                 new BotType{ WildSpawnType = WildSpawnType.cursedAssault,           Name = "Tagged and Cursed Scav",   Section = "Scavs" ,       Description = "The type a scav is assigned when the player is marked as Tagged and Cursed" },
                 new BotType{ WildSpawnType = WildSpawnType.bossKnight,              Name = "Knight",                   Section = "Goons" ,       Description = "Goons leader. Close proximity to the goons has been noted to cause smashed keyboards" },
@@ -132,9 +132,8 @@ namespace SAIN.Preset
                 new BotType{ WildSpawnType = WildSpawnType.sectantPriest,           Name = "Cultist Priest",           Section = "Other" ,       Description = "Found on Customs, Woods, Factory, Shoreline at night" },
                 new BotType{ WildSpawnType = WildSpawnType.sectantWarrior,          Name = "Cultist",                  Section = "Other" ,       Description = "Found on Customs, Woods, Factory, Shoreline at night" },
                 new BotType{ WildSpawnType = WildSpawnType.bossKilla,               Name = "Killa",                    Section = "Bosses" ,      Description = "He shoot. Found on Interchange and Streets" },
-				new BotType{ WildSpawnType = WildSpawnType.bossPartisan,            Name = "Partisan",                 Section = "Bosses" ,      Description = "Crazy mall santa" },
 
-				new BotType{ WildSpawnType = WildSpawnType.bossBully,               Name = "Rashala",                  Section = "Bosses" ,      Description = "Customs Boss" },
+                new BotType{ WildSpawnType = WildSpawnType.bossBully,               Name = "Rashala",                  Section = "Bosses" ,      Description = "Customs Boss" },
                 new BotType{ WildSpawnType = WildSpawnType.followerBully,           Name = "Rashala Guard",            Section = "Followers" ,   Description = "Customs Boss Follower" },
 
                 new BotType{ WildSpawnType = WildSpawnType.bossKojaniy,             Name = "Shturman",                 Section = "Bosses" ,      Description = "Woods Boss" },

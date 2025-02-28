@@ -1,5 +1,4 @@
-﻿using SPT.Reflection.Patching;
-using EFT;
+﻿using EFT;
 using EFT.EnvironmentEffect;
 using HarmonyLib;
 using SAIN.Components;
@@ -7,7 +6,10 @@ using SAIN.Helpers;
 using SAIN.SAINComponent;
 using SAIN.SAINComponent.Classes.EnemyClasses;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using UnityEngine;
+using EFT.InventoryLogic;
+using UnityEngine.UIElements;
 
 namespace SAIN.Patches.Generic
 {
@@ -27,6 +29,14 @@ namespace SAIN.Patches.Generic
     {
         protected override MethodBase GetTargetMethod()
         {
+            //?
+            //BotReload.Class172 class172 = new BotReload.Class172();
+            //if ((UnityEngine.Object)this._player == (UnityEngine.Object)null || !this._player.HealthController.IsAlive || this.ShootController == null)
+            //    return;
+            //Weapon weapon = this.ShootController.Item;
+            //if (weapon == null || weapon.ReloadMode != Weapon.EReloadMode.ExternalMagazine)
+            //    return;
+            //class172.magazineSlot = weapon.GetMagazineSlot();
             return AccessTools.Method(typeof(BotReload), "method_1");
         }
 
@@ -41,11 +51,11 @@ namespace SAIN.Patches.Generic
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(GClass551), "SetEnvironment");
+            return AccessTools.Method(typeof(AIData), "SetEnvironment");
         }
 
         [PatchPostfix]
-        public static void Patch(GClass551 __instance, IndoorTrigger trigger)
+        public static void Patch(AIData __instance, IndoorTrigger trigger)
         {
             SAINBotController.Instance?.PlayerEnviromentChanged(__instance?.Player?.ProfileId, trigger);
         }
@@ -106,7 +116,8 @@ namespace SAIN.Patches.Generic
     {
 		protected override MethodBase GetTargetMethod()
 		{
-			return AccessTools.Method(typeof(BotWeaponSelector), nameof(BotWeaponSelector.TryChangeToSlot));
+            //this.botOwner_0.GetPlayer.SetSlotItem(class180.slot, new Callback<IHandsController>(class180.method_0));
+            return AccessTools.Method(typeof(BotWeaponSelector), nameof(BotWeaponSelector.method_1)); //TryChangeToSlot
 		}
 
 		[PatchPrefix]
@@ -189,6 +200,9 @@ namespace SAIN.Patches.Generic
     {
         protected override MethodBase GetTargetMethod()
         {
+            //Vector3 dangerPoint = GClass499.FindDangerPoint(position, force, mass);
+            //foreach (BotOwner botOwner in this.Bots.BotOwners)
+            //    botOwner.BewareGrenade.AddGrenadeDanger(dangerPoint, grenade);
             return AccessTools.Method(typeof(BotsController), "method_4");
         }
 
@@ -211,6 +225,13 @@ namespace SAIN.Patches.Generic
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public void method_3(
+            //    Vector3 explosionPosition,
+            //    string playerProfileID,
+            //    bool isSmoke,
+            //    float smokeRadius,
+            //    float smokeLifeTime)
+            //{
             return AccessTools.Method(typeof(BotsController), "method_3");
         }
 

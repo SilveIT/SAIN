@@ -4,6 +4,7 @@ using SAIN.Components.PlayerComponentSpace;
 using System;
 using System.Collections;
 using UnityEngine;
+using EftBulletClass = Shot;
 
 namespace SAIN.Components.BotControllerSpace.Classes
 {

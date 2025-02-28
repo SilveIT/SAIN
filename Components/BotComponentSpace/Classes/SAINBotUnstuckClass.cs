@@ -27,7 +27,7 @@ namespace SAIN.SAINComponent.Classes.Debug
         public void Init()
         {
             base.SubscribeToPreset(null);
-            PathController = _pathControllerField.GetValue(BotOwner.Mover) as PathControllerClass;
+            PathController = _pathControllerField.GetValue(BotOwner.Mover) as PathController;
             DontUnstuckMe = DontUnstuckTheseTypes.Contains(Bot.Info.Profile.WildSpawnType);
         }
 
@@ -542,7 +542,7 @@ namespace SAIN.SAINComponent.Classes.Debug
 
         private float teleportTimer;
 
-        public PathControllerClass PathController { get; private set; }
+        public PathController PathController { get; private set; }
 
         private static NavMeshPath CalcPath(Vector3 start, Vector3 end, out float pathLength)
         {

@@ -82,6 +82,7 @@ namespace SAIN.SAINComponent.Classes.Memory
 
         static SAINMemoryClass()
         {
+            //public bool IsUnderFire => this.float_4 > Time.time;
             _underFireTimeField = AccessTools.Field(typeof(BotMemoryClass), "float_4");
         }
 

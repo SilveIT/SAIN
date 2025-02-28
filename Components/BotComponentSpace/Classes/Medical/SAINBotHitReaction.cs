@@ -56,7 +56,7 @@ namespace SAIN.SAINComponent.Classes
             AimHitEffect.Dispose();
         }
 
-        public void GetHit(DamageInfoStruct DamageInfoStruct, EBodyPart bodyPart, float floatVal)
+        public void GetHit(DamageInfo DamageInfoStruct, EBodyPart bodyPart, float floatVal)
         {
             BodyHitEffect.GetHit(DamageInfoStruct, bodyPart, floatVal);
             AimHitEffect.GetHit(DamageInfoStruct);
@@ -88,7 +88,7 @@ namespace SAIN.SAINComponent.Classes
 
         private bool _isStunned;
 
-        private bool IsStunnedFromDamage(DamageInfoStruct DamageInfoStruct)
+        private bool IsStunnedFromDamage(DamageInfo DamageInfoStruct)
         {
             return false;
         }

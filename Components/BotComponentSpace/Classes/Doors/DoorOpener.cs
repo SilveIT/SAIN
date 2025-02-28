@@ -6,6 +6,7 @@ using SAIN.Preset.GlobalSettings;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using GClass340 = SegmentOpen;
 
 namespace SAIN.SAINComponent.Classes.Mover
 {
@@ -534,11 +535,15 @@ namespace SAIN.SAINComponent.Classes.Mover
 				return false;
 			}
 			var interactionParameters = door.GetInteractionParameters(BotOwner.Position);
-			if (interactionParameters.AnimationId == (door.DoorState is EDoorState.Locked ? (int)door.DoorKeyOpenInteraction : door.CalculateInteractionIndex(BotOwner.Position)))
-			{
-				return false;
-			}
-			return true;
+
+            //TODO DoorKeyOpenInteraction is open door with a key anim, have no idea, how it works...
+            //if (interactionParameters.AnimationId == (door.DoorState is EDoorState.Locked ? (int)door.DoorKeyOpenInteraction : CalculateInteractionIndex(BotOwner.Position)))
+            if (interactionParameters.AnimationId == door.PushID)
+            {
+                return false;
+            }
+
+            return true;
 		}
 
         // Token: 0x060010AF RID: 4271 RVA: 0x0004CED4 File Offset: 0x0004B0D4

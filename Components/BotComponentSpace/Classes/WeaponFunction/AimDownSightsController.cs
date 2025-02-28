@@ -94,12 +94,12 @@ namespace SAIN.SAINComponent.Classes.WeaponFunction
             }
         }
 
-        public BotAimingClass BotAimingClass {
+        public GBotAiming BotAimingClass {
             get
             {
                 if (_botAimingClass == null) {
                     var aimData = BotOwner.AimingData;
-                    if (aimData != null && aimData is BotAimingClass aimClass) {
+                    if (aimData != null && aimData is GBotAiming aimClass) {
                         _botAimingClass = aimClass;
                     }
                 }
@@ -107,7 +107,7 @@ namespace SAIN.SAINComponent.Classes.WeaponFunction
             }
         }
 
-        private BotAimingClass _botAimingClass;
+        private GBotAiming _botAimingClass;
 
         public EAimDownSightsStatus CurrentADSstatus { get; private set; }
         public EAimDownSightsStatus LastADSstatus { get; private set; }

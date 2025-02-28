@@ -189,7 +189,7 @@ namespace SAIN.SAINComponent.Classes
             }
         }
 
-        public void GetHit(DamageInfoStruct DamageInfoStruct, EBodyPart bodyPart, float floatVal)
+        public void GetHit(DamageInfo DamageInfoStruct, EBodyPart bodyPart, float floatVal)
         {
             if (InCover)
             {

@@ -1,5 +1,7 @@
 ﻿using EFT;
 using UnityEngine;
+using ThrowWeapItemClass = GrenadeClass;
+using MedsItemClass = MedsClass;
 
 namespace SAIN.Components.Helpers
 {

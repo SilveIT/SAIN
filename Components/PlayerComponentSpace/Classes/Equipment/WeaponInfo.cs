@@ -4,6 +4,7 @@ using SAIN.Plugin;
 using SAIN.Preset;
 using System;
 using UnityEngine;
+using TemplateIdToObjectMappingsClass = GClass2752;
 
 namespace SAIN.SAINComponent.Classes.Info
 {

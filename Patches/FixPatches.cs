@@ -1,31 +1,31 @@
-﻿using SPT.Reflection.Patching;
-using EFT;
+﻿using EFT;
 using EFT.InventoryLogic;
 using HarmonyLib;
 using SAIN.Components;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using UnityEngine;
+using GClass483 = GBossPatrolMoveSimple1;
 
 namespace SAIN.Patches.Generic.Fixes
 {
-    internal class EnableVaultPatch : ModulePatch
-    {
-        protected override MethodBase GetTargetMethod()
-        {
-            return AccessTools.Method(typeof(Player), nameof(Player.InitVaultingComponent));
-        }
-
-        [PatchPrefix]
-        public static void Patch(Player __instance, ref bool aiControlled)
-        {
-			if (__instance.UsedSimplifiedSkeleton)
-				return;
-
-            aiControlled = false;
-        }
-    }
+    // UsedSimplifiedSkeleton are zombies
+    // internal class EnableVaultPatch : ModulePatch
+    // {
+    //     protected override MethodBase GetTargetMethod()
+    //     {
+    //         return AccessTools.Method(typeof(Player), nameof(Player.Init)); //was InitVaultingComponent
+    //     }
+    //     [PatchPrefix]
+    //     public static void Patch(Player __instance, ref bool aiControlled)
+    //     {
+    //          if (__instance.UsedSimplifiedSkeleton)
+    //	            return;
+    //         aiControlled = false;
+    //     }
+    // }
 
     internal class FightShallReloadFixPatch : ModulePatch
     {
@@ -62,7 +62,7 @@ namespace SAIN.Patches.Generic.Fixes
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(BotItemTaker), nameof(BotItemTaker.method_12));
+            return AccessTools.Method(typeof(BotItemTaker), nameof(BotItemTaker.ManualUpdate)); //TODO orig was method_12, since I don't know which it is, hooking core update method
         }
 
         [PatchPrefix]
@@ -90,6 +90,7 @@ namespace SAIN.Patches.Generic.Fixes
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public bool method_4(List<BotOwner> followers)
             return AccessTools.Method(typeof(GClass483), "method_4");
         }
 
@@ -220,7 +221,12 @@ namespace SAIN.Patches.Generic.Fixes
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(BotMover), "method_1");
+            //if (this.HavePath || (double)(this._prevLinkPos - this.botOwner_0.Position).sqrMagnitude <= 0.0)
+            //    return;
+            //Vector3 position = this.botOwner_0.Position;
+            //Vector3 castPoint = position + Vector3.up * 0.3f;
+            //this.SetPlayerToNavMesh(position, castPoint);
+            return AccessTools.Method(typeof(BotMover), "method_0");
         }
 
         [PatchPrefix]

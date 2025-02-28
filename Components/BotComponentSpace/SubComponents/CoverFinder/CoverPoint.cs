@@ -154,7 +154,7 @@ namespace SAIN.SAINComponent.SubComponents.CoverFinder
         public int RoundedPathLength => PathData.RoundedPathLength;
         public bool BotInThisCover => IsCurrent && (StraightDistanceStatus == CoverStatus.InCover || PathDistanceStatus == CoverStatus.InCover);
 
-        public void GetHit(DamageInfoStruct DamageInfoStruct, EBodyPart partHit, Enemy currentEnemy)
+        public void GetHit(DamageInfo DamageInfoStruct, EBodyPart partHit, Enemy currentEnemy)
         {
             int hitCount = calcHitCount(DamageInfoStruct);
             bool islegs = partHit.isLegs();
@@ -274,7 +274,7 @@ namespace SAIN.SAINComponent.SubComponents.CoverFinder
             return false;
         }
 
-        private int calcHitCount(DamageInfoStruct DamageInfoStruct)
+        private int calcHitCount(DamageInfo DamageInfoStruct)
         {
             float received = DamageInfoStruct.Damage;
             float max = HITINCOVER_MAX_DAMAGE;

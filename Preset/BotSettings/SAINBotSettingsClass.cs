@@ -223,7 +223,7 @@ namespace SAIN.Preset.BotSettings
 			{
 				Logger.LogError($"[{type}] does not exist in SAINSettings Dictionary!");
 			}
-			return SAINSettings[WildSpawnType.pmcUSEC].Settings[BotDifficulty.normal];
+			return SAINSettings[WildSpawnType.sptUsec].Settings[BotDifficulty.normal];
 		}
 
 		public object GetEFTSettings(WildSpawnType type, BotDifficulty difficulty)
@@ -244,7 +244,7 @@ namespace SAIN.Preset.BotSettings
 			{
 				Logger.LogError($"[{type}] does not exist in EFTSettings Dictionary!");
 			}
-			return EFTSettings[WildSpawnType.pmcUSEC].Settings[BotDifficulty.normal];
+			return EFTSettings[WildSpawnType.sptUsec].Settings[BotDifficulty.normal];
 		}
 
 		public Dictionary<WildSpawnType, SAINSettingsGroupClass> SAINSettings = new Dictionary<WildSpawnType, SAINSettingsGroupClass>();
@@ -268,8 +268,7 @@ namespace SAIN.Preset.BotSettings
 				{ WildSpawnType.bossKojaniy, 0.75f },
 				{ WildSpawnType.bossZryachiy, 0.75f },
 				{ WildSpawnType.sectantPriest, 0.75f },
-				{ WildSpawnType.bossPartisan, 0.75f },
-				{ WildSpawnType.bossKnight, 1f },
+                { WildSpawnType.bossKnight, 1f },
 
 				{ WildSpawnType.sectantWarrior, 0.7f },
 				{ WildSpawnType.followerBully, 0.55f },
@@ -289,8 +288,8 @@ namespace SAIN.Preset.BotSettings
 				{ WildSpawnType.arenaFighter, 0.66f },
 				{ WildSpawnType.arenaFighterEvent, 0.66f },
 
-				{ WildSpawnType.pmcUSEC, 1f },
-				{ WildSpawnType.pmcBEAR, 1f },
+				{ WildSpawnType.sptUsec, 1f },
+				{ WildSpawnType.sptBear, 1f },
 			};
 
 			foreach (WildSpawnType type in BotTypeDefinitions.BotTypes.Keys)

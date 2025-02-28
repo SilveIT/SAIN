@@ -58,7 +58,7 @@ namespace SAIN.Preset.GlobalSettings
             power += RolePower(playerComponent.Player.Profile.Info.Settings.Role);
             power += ArmorPower(playerComponent.Player);
 
-			if (playerComponent.Player.AIData is GClass551 aiData)
+			if (playerComponent.Player.AIData is AIData aiData)
 			{
 				aiData.PowerOfEquipment = power;
 			}
@@ -224,9 +224,9 @@ namespace SAIN.Preset.GlobalSettings
 
         [JsonIgnore]
         private static readonly List<WildSpawnType> _PMCS = new List<WildSpawnType>
-        {
-            WildSpawnType.pmcUSEC,
-            WildSpawnType.pmcBEAR
+        {   
+            WildSpawnType.sptUsec,
+            WildSpawnType.sptBear
         };
 
         [JsonIgnore]

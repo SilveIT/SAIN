@@ -52,7 +52,7 @@ namespace SAIN.SAINComponent.Classes
             HitByEnemy?.Dispose();
         }
 
-        public void GetHit(DamageInfoStruct DamageInfoStruct, EBodyPart bodyPart, float floatVal)
+        public void GetHit(DamageInfo DamageInfoStruct, EBodyPart bodyPart, float floatVal)
         {
             TimeLastShot = Time.time;
             HitByEnemy.GetHit(DamageInfoStruct, bodyPart, floatVal);

@@ -6,9 +6,9 @@ using SAIN.Helpers;
 using SAIN.Preset.GlobalSettings;
 using SAIN.SAINComponent;
 using SAIN.SAINComponent.Classes.EnemyClasses;
-using SPT.Reflection.Patching;
 using System;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using UnityEngine;
 
 namespace SAIN.Patches.Vision
@@ -110,6 +110,13 @@ namespace SAIN.Patches.Vision
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public void method_0()
+            //{
+            //    if (this.IsEnable && this.botOwner_0.Settings.FileSettings.Look.LightOnVisionDistance < this._curLightDist)
+            //    {
+            //        this.TurnOff(false, true);
+            //    }
+            //}
             return AccessTools.Method(typeof(BotLight), "method_0");
         }
 
@@ -135,6 +142,20 @@ namespace SAIN.Patches.Vision
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public void method_0()
+            //{
+            //    if (this.botOwner_0.FlashGrenade.IsFlashed)
+            //    {
+            //        return;
+            //    }
+            //    if (this._nightVisionAtPocket)
+            //    {
+            //        if (this.botOwner_0.LookSensor.ClearVisibleDist < this.botOwner_0.Settings.FileSettings.Look.NIGHT_VISION_ON)
+            //        {
+            //            this.method_4();
+            //            return;
+            //        }
+            //    }
             return AccessTools.Method(typeof(BotNightVisionData), "method_0");
         }
 
@@ -155,6 +176,11 @@ namespace SAIN.Patches.Vision
             {
                 if (timeModifier < turnOnRatio)
                 {
+                    //public void method_4()
+                    //{
+                    //    this.method_6();
+                    //    this.method_5();
+                    //}
                     __instance.method_4();
                     return false;
                 }
@@ -163,10 +189,21 @@ namespace SAIN.Patches.Vision
             {
                 if (timeModifier < turnOnRatio)
                 {
+                    //public void method_5()
+                    //{
+                    //    if (!this.NightVisionItem.Togglable.On)
+                    //    {
                     __instance.method_5();
                 }
                 if (timeModifier >= turnOffRatio)
                 {
+                    //public void method_1()
+                    //{
+                    //    if (this._stopTryingMove)
+                    //    {
+                    //        return;
+                    //    }
+                    //    if (!this.method_7(this.TradableItem, EquipmentSlot.SecuredContainer))
                     __instance.method_1();
                 }
             }
@@ -266,6 +303,10 @@ namespace SAIN.Patches.Vision
             _visibleDistProperty = typeof(LookSensor).GetProperty("VisibleDist");
             _HourServerProperty = typeof(LookSensor).GetProperty("HourServer");
 
+            //public void method_2()
+            //{
+            //    if (this._nextUpdateVisibleDist < Time.time)
+            //    {
             return AccessTools.Method(typeof(LookSensor), "method_2");
         }
 
@@ -404,6 +445,10 @@ namespace SAIN.Patches.Vision
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public float method_5(BifacialTransform BotTransform, BifacialTransform enemy, Settings9 settings, AIData aiData, float personalLastSeenTime, Vector3 personalLastSeenPos)
+            //{
+            //    float num = 1f;
+            //    if (Time.time - personalLastSeenTime < this.Owner.Settings.FileSettings.Look.SEC_REPEATED_SEEN && (double)(personalLastSeenPos - enemy.position).sqrMagnitude < this.Owner.Settings.FileSettings.Look.DIST_SQRT_REPEATED_SEEN)
             return AccessTools.Method(typeof(EnemyInfo), "method_5");
         }
 
@@ -462,7 +507,7 @@ namespace SAIN.Patches.Vision
 
         protected override MethodBase GetTargetMethod()
         {
-            _UsingLight = AccessTools.PropertySetter(typeof(GClass551), "UsingLight");
+            _UsingLight = AccessTools.PropertySetter(typeof(AIData), "UsingLight");
             return AccessTools.Method(typeof(Player.FirearmController), "SetLightsState");
         }
 

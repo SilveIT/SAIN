@@ -2,6 +2,7 @@
 using SAIN.Helpers;
 using System;
 using UnityEngine;
+using TemplateIdToObjectMappingsClass = GClass2752;
 
 namespace SAIN
 {

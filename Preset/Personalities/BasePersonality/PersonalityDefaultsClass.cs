@@ -566,8 +566,8 @@ namespace SAIN.Preset.Personalities
 
         private static void addPMCs(List<WildSpawnType> allowedTypes)
         {
-            allowedTypes.Add(WildSpawnType.pmcUSEC);
-            allowedTypes.Add(WildSpawnType.pmcBEAR);
+            allowedTypes.Add(WildSpawnType.sptUsec);
+            allowedTypes.Add(WildSpawnType.sptBear);
         }
 
         private static void addAllTypes(List<WildSpawnType> allowedTypes)

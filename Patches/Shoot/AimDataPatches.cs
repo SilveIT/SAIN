@@ -11,11 +11,11 @@ using SAIN.SAINComponent;
 using SAIN.SAINComponent.Classes;
 using SAIN.SAINComponent.Classes.EnemyClasses;
 using SAIN.SAINComponent.SubComponents.CoverFinder;
-using SPT.Reflection.Patching;
 using System.Reflection;
 using System.Text;
+using Aki.Reflection.Patching;
 using UnityEngine;
-using HitAffectClass = GClass568;
+using HitAffectClass = GClass522;
 
 namespace SAIN.Patches.Shoot.Aim
 {
@@ -81,11 +81,12 @@ namespace SAIN.Patches.Shoot.Aim
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.PropertySetter(typeof(BotAimingClass), "Status");
+            return AccessTools.PropertySetter(typeof(GBotAiming), "Status");
         }
 
+        //public AimStatus Status.set -> this.botOwner_0.BotPersonalStats.Aim(this.EndTargetPoint, this.float_7);
         [PatchPrefix]
-        public static bool PatchPrefix(BotAimingClass __instance, AimStatus value, BotOwner ___botOwner_0, ref AimStatus ___aimStatus_0, float ___float_7)
+        public static bool PatchPrefix(GBotAiming __instance, AimStatus value, BotOwner ___botOwner_0, ref AimStatus ___aimStatus_0, float ___float_7)
         {
             if (___aimStatus_0 == value || ___botOwner_0.BotState != EBotState.Active) {
                 return false;
@@ -111,9 +112,18 @@ namespace SAIN.Patches.Shoot.Aim
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public void method_13()
+            //{
+            //    if (DebugBotData.UseDebugData && DebugBotData.Instance.TrueAim)
+            //    {
+            //        this.EndTargetPoint = this.RealTargetPoint;
+            //        return;
+            //    }
+            //    this.EndTargetPoint = this.RealTargetPoint + this.vector3_5 + this.float_13 * (this.vector3_4 + this.botOwner_0.RecoilData.RecoilOffset);
+            //}
+
             _endTargetPointProp = AccessTools.Property(HelpersGClass.AimDataType, "EndTargetPoint");
-            return AccessTools.Method(typeof(BotAimingClass), "method_13");
-            //return AccessTools.Method(HelpersGClass.AimDataType, "method_13");
+            return AccessTools.Method(HelpersGClass.AimDataType, "method_13");
         }
 
         private static PropertyInfo _endTargetPointProp;
@@ -202,6 +212,7 @@ namespace SAIN.Patches.Shoot.Aim
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public Vector3 method_9(float dist, float angCoef, float additionCoef = 1f)
             return AccessTools.Method(HelpersGClass.AimDataType, "method_9");
         }
 
@@ -221,7 +232,7 @@ namespace SAIN.Patches.Shoot.Aim
         }
 
         [PatchPrefix]
-        public static bool PatchPrefix(BotOwner ___botOwner_0, DamageInfoStruct DamageInfoStruct)
+        public static bool PatchPrefix(BotOwner ___botOwner_0, DamageInfo DamageInfoStruct)
         {
             if (SAINPlugin.IsBotExluded(___botOwner_0)) {
                 return true;
@@ -254,6 +265,8 @@ namespace SAIN.Patches.Shoot.Aim
 
         protected override MethodBase GetTargetMethod()
         {
+            //public float method_7(float dist, float ang)
+            //float num2 = (this.Boolean_0 ? this.AimingSettings.PANIC_COEF : 1f);
             _PanicingProp = AccessTools.Property(HelpersGClass.AimDataType, "Boolean_0");
             return AccessTools.Method(HelpersGClass.AimDataType, "method_7");
         }
@@ -420,6 +433,12 @@ namespace SAIN.Patches.Shoot.Aim
 
         protected override MethodBase GetTargetMethod()
         {
+            //public void method_11(Vector3 dir)
+            //{
+            //    this.vector3_2 = dir;
+            //    this.botOwner_0.Steering.LookToDirection(dir, 500f);
+            //    this.botOwner_0.Steering.SetYByDir(this.vector3_0);
+            //}
             return AccessTools.Method(HelpersGClass.AimDataType, "method_11");
         }
 
@@ -437,6 +456,7 @@ namespace SAIN.Patches.Shoot.Aim
     {
         protected override MethodBase GetTargetMethod()
         {
+            //public void method_7(bool withLegs, bool canBehead)
             return AccessTools.Method(typeof(EnemyInfo), "method_7");
         }
 

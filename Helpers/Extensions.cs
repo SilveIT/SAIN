@@ -60,8 +60,8 @@ namespace SAIN.Helpers
         public static bool isPMC(this WildSpawnType type)
         {
             switch (type) {
-                case WildSpawnType.pmcBEAR:
-                case WildSpawnType.pmcUSEC:
+                case WildSpawnType.sptBear:
+                case WildSpawnType.sptUsec:
                     return true;
 
                     default:

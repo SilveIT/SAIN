@@ -10,10 +10,10 @@ using SAIN.Patches.Shoot.Aim;
 using SAIN.Plugin;
 using SAIN.Preset;
 using SAIN.Preset.GlobalSettings;
-using SPT.Reflection.Patching;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using UnityEngine;
 using static SAIN.AssemblyInfoClass;
 
@@ -29,9 +29,9 @@ using static SAIN.AssemblyInfoClass;
 namespace SAIN
 {
     [BepInPlugin(SAINGUID, SAINName, SAINVersion)]
-    [BepInDependency(BigBrainGUID, BigBrainVersion)]
-    [BepInDependency(WaypointsGUID, WaypointsVersion)]
-    [BepInDependency(SPTGUID, SPTVersion)]
+    [BepInDependency(BigBrainGUID)]
+    [BepInDependency(WaypointsGUID)]
+    [BepInDependency(SPTGUID)]
     [BepInProcess(EscapeFromTarkov)]
     [BepInIncompatibility("com.dvize.BushNoESP")]
     [BepInIncompatibility("com.dvize.NoGrenadeESP")]
@@ -87,7 +87,7 @@ namespace SAIN
                 //typeof(Patches.Generic.Fixes.HealCancelPatch),
                 typeof(Patches.Generic.Fixes.StopSetToNavMeshPatch),
                 typeof(Patches.Generic.Fixes.FightShallReloadFixPatch),
-                typeof(Patches.Generic.Fixes.EnableVaultPatch),
+                //typeof(Patches.Generic.Fixes.EnableVaultPatch),
                 typeof(Patches.Generic.Fixes.BotMemoryAddEnemyPatch),
                 typeof(Patches.Generic.Fixes.BotGroupAddEnemyPatch),
                 //typeof(Patches.Generic.Fixes.NoTeleportPatch),

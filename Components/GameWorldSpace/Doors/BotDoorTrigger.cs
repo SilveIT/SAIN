@@ -71,8 +71,8 @@ namespace SAIN.Components
         private bool shallInvertDoorAngle(Door door, Vector3 colliderPosition)
         {
 			var interactionParameters = door.GetInteractionParameters(colliderPosition);
-			if (interactionParameters.AnimationId == (door.DoorState is EDoorState.Locked ? (int)door.DoorKeyOpenInteraction : door.CalculateInteractionIndex(colliderPosition)))
-			{
+            if (interactionParameters.AnimationId == door.PushID)
+            {
 				return false;
 			}
 			return true;

@@ -22,7 +22,7 @@ namespace SAIN.SAINComponent.Classes.Mover
 
         public SAINMoverClass(BotComponent sain) : base(sain)
         {
-            _pathController = _pathControllerField.GetValue(sain.BotOwner.Mover) as PathControllerClass;
+            _pathController = _pathControllerField.GetValue(sain.BotOwner.Mover) as PathController;
             BlindFire = new BlindFireController(sain);
             SideStep = new SideStepClass(sain);
             Lean = new LeanClass(sain);
@@ -32,7 +32,7 @@ namespace SAIN.SAINComponent.Classes.Mover
             DogFight = new DogFight(sain);
         }
 
-        private PathControllerClass _pathController { get; }
+        private PathController _pathController { get; }
 
         public event Action<Vector3, Vector3> OnNewGoToPoint;
 

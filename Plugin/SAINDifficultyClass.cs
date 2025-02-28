@@ -175,7 +175,7 @@ namespace SAIN.Plugin
         {
             var botSettings = preset.BotSettings;
             foreach (var botsetting in botSettings.SAINSettings) {
-                if (botsetting.Key == WildSpawnType.pmcUSEC || botsetting.Key == WildSpawnType.pmcBEAR) {
+                if (botsetting.Key == WildSpawnType.sptUsec || botsetting.Key == WildSpawnType.sptBear) {
                     var pmcSettings = botsetting.Value.Settings;
 
                     // Set for all difficulties

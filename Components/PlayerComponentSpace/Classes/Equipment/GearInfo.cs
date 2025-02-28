@@ -24,7 +24,7 @@ namespace SAIN.SAINComponent.Classes.Info
 
         protected SAINEquipmentClass Equipment { get; private set; }
 
-        protected InventoryEquipment _equipment => Equipment.EquipmentClass;
+        protected EquipmentClass _equipment => Equipment.EquipmentClass;
 
         public GearInfo(SAINEquipmentClass equipment)
         {

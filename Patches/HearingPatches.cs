@@ -7,10 +7,19 @@ using EFT.UI;
 using HarmonyLib;
 using SAIN.Components;
 using SAIN.Components.Helpers;
-using SPT.Reflection.Patching;
 using System.Reflection;
+using Aki.Reflection.Patching;
 using Systems.Effects;
 using UnityEngine;
+using EftBulletClass = Shot;
+using ThrowWeapItemClass = GrenadeClass;
+using FoodDrinkItemClass = FoodClass;
+using PhraseSpeakerClass = Speaker;
+using IHandsThrowController = IThrowableCallback;
+using IPlayerOwner = GIPlayer;
+using SAIN.Preset.GlobalSettings.Categories;
+using static EFT.Interactive.BetterPropagationGroups;
+//Use IsAtBindablePlace(Item item) to find Item Classes
 
 namespace SAIN.Patches.Hearing
 {
@@ -118,6 +127,10 @@ namespace SAIN.Patches.Hearing
     {
         protected override MethodBase GetTargetMethod()
         {
+            //float power = GClass537.Core.JUMP_SPREAD_DIST * powerCoef;
+            //if (!Singleton<GClass603>.Instantiated)
+            //    return;
+            //Singleton<GClass603>.Instance.PlaySound((IPlayer)this._player, this.TransformPosition, power, AISoundType.step);
             return AccessTools.Method(typeof(MovementContext), "method_2");
         }
 
@@ -150,7 +163,12 @@ namespace SAIN.Patches.Hearing
 
 		private static float calcVolume(Player player)
 		{
-			return player.MovementContext.CovertMovementVolumeBySpeed * player.method_54();
+            //Factor calculation was from player.method_54()
+            var maxAllowedMovementSpeed = player.MovementContext.MaxSpeed;
+            float characterMovementSpeed = player.MovementContext.CharacterMovementSpeed;
+            var factor = Mathf.Clamp(Mathf.InverseLerp(0f, maxAllowedMovementSpeed, characterMovementSpeed), player.MINStepSoundSpeedFactor, 1f);
+
+            return player.MovementContext.CovertMovementVolumeBySpeed * factor;
 		}
 	}
 
@@ -158,6 +176,11 @@ namespace SAIN.Patches.Hearing
     {
         protected override MethodBase GetTargetMethod()
         {
+            //float num4 = this._player.IsSprintEnabled ? 1f : this.CovertMovementVolumeBySpeed;
+            //float power = (float)((double)GClass537.Core.BASE_WALK_SPEREAD2 * ((double)num4 + (double)num3) / 2.0);
+            //if (!Singleton<GClass603>.Instantiated)
+            //    return;
+            //Singleton<GClass603>.Instance.PlaySound((IPlayer)this._player, this.TransformPosition, power, AISoundType.step);
             return AccessTools.Method(typeof(MovementContext), "method_1");
         }
 
@@ -177,7 +200,12 @@ namespace SAIN.Patches.Hearing
 					return false;
 				}
 
-				float volume = ____player.MovementContext.CovertMovementVolumeBySpeed * ____player.method_54();
+                //Factor calculation was from player.method_54() (method_45() in our 29351)
+                var maxAllowedMovementSpeed = ____player.MovementContext.MaxSpeed;
+                float characterMovementSpeed = ____player.MovementContext.CharacterMovementSpeed;
+                var factor = Mathf.Clamp(Mathf.InverseLerp(0f, maxAllowedMovementSpeed, characterMovementSpeed), ____player.MINStepSoundSpeedFactor, 1f);
+
+                float volume = ____player.MovementContext.CovertMovementVolumeBySpeed * factor;
 				float baseRange = 60f;
 				SAINBotController.Instance?.BotHearing.PlayAISound(____player.ProfileId, SAINSoundType.Sprint, ____player.Position, baseRange, volume);
 			}
@@ -242,6 +270,16 @@ namespace SAIN.Patches.Hearing
     {
         protected override MethodBase GetTargetMethod()
         {
+            //if (this._botOwner.Memory.GoalEnemy != null)
+            //{
+            //    this.method_1(@class.player, @class.position, @class.power, @class.type);
+            //    return;
+            //}
+            //float num;
+            //if (this._botOwner.Memory.GoalTarget.HavePlaceTarget())
+            //{
+            //    num = this._botOwner.Settings.FileSettings.Hearing.HEAR_DELAY_WHEN_HAVE_SMT;
+            //}
             return AccessTools.Method(typeof(BotHearingSensor), "method_0");
         }
 
@@ -264,12 +302,12 @@ namespace SAIN.Patches.Hearing
 
 		protected override MethodBase GetTargetMethod()
 		{
-			AIFlareEnabled = AccessTools.Property(typeof(GClass551), "Boolean_0");
-			return AccessTools.Method(typeof(GClass551), "TryPlayShootSound");
+			AIFlareEnabled = AccessTools.Property(typeof(AIData), "Boolean_0");
+			return AccessTools.Method(typeof(AIData), "TryPlayShootSound");
 		}
 
 		[PatchPrefix]
-		public static bool PatchPrefix(GClass551 __instance)
+		public static bool PatchPrefix(AIData __instance)
 		{
 			//if (__instance.IsAI &&
 			//    SAINPlugin.IsBotExluded(__instance.BotOwner))
@@ -381,7 +419,7 @@ namespace SAIN.Patches.Hearing
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(Player), nameof(Player.PlayTacticalSound));
+            return AccessTools.Method(typeof(Player), nameof(Player.PlaySwitchHeadlightSound));
         }
 
         [PatchPostfix]
@@ -395,7 +433,11 @@ namespace SAIN.Patches.Hearing
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(Player), "method_46");
+            //TODO probably public BetterSource method_39(int count)
+            //this._searchCount = (float)count;
+            //if (this._searchCount > 0f)
+
+            return AccessTools.Method(typeof(Player), "method_39");
         }
 
         [PatchPostfix]
@@ -421,7 +463,7 @@ namespace SAIN.Patches.Hearing
 		{
 			if (soundBank == "Prone"
 				&& __instance.SinceLastStep >= 0.5f
-				&& __instance.CheckSurface(____runSurfaceCheck))
+				&& __instance.CheckSurface())
 			{
 				float range = SAINPlugin.LoadedPreset.GlobalSettings.Hearing.BaseSoundRange_Prone;
 				SAINBotController.Instance?.BotHearing.PlayAISound(__instance.ProfileId, SAINSoundType.Prone, __instance.Position, range, 1f);
@@ -433,7 +475,15 @@ namespace SAIN.Patches.Hearing
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(Player), nameof(Player.method_55));
+            //this.UpdateOcclusion();
+            //float num = 1f - this.Skills.BotSoundCoef;
+            //volume *= num;
+            //if (this.NestedStepSoundSource != null)
+            //{
+            //    this.NestedStepSoundSource.gameObject.SetActive(true);
+            //    this._gearSoundBank.PlayWithConstantRolloffDistance(this.NestedStepSoundSource, EnvironmentType.Outdoor, this.Distance, volume * this.MovementContext.CovertEquipmentNoise, this.Distance, this.FirstPersonPointOfView);
+            //}
+            return AccessTools.Method(typeof(Player), nameof(Player.method_46));
         }
 
         [PatchPrefix]
@@ -465,7 +515,7 @@ namespace SAIN.Patches.Hearing
         protected override MethodBase GetTargetMethod()
         {
             return AccessTools.Method(typeof(Player), "SetInHands",
-                new[] { typeof(FoodDrinkItemClass), typeof(float), typeof(int), typeof(Callback<GInterface165>) });
+                new[] { typeof(FoodDrinkItemClass), typeof(float), typeof(int), typeof(Callback<IMedsController>) });
         }
 
         [PatchPrefix]
@@ -481,11 +531,11 @@ namespace SAIN.Patches.Hearing
         protected override MethodBase GetTargetMethod()
         {
             return AccessTools.Method(typeof(Player), "SetInHands",
-                new[] { typeof(MedsItemClass), typeof(EBodyPart), typeof(int), typeof(Callback<GInterface165>) });
+                new[] { typeof(MedsClass), typeof(EBodyPart), typeof(int), typeof(Callback<IMedsController>) });
         }
 
         [PatchPrefix]
-        public static void PatchPrefix(MedsItemClass meds, Player __instance)
+        public static void PatchPrefix(MedsClass meds, Player __instance)
         {
             SAINSoundType soundType;
             float range;

@@ -19,7 +19,7 @@ public struct VertexShiftJob : IJobFor
 
 public class UnityJobExample : MonoBehaviour
 {
-	private Mesh mesh;
+	private UnityEngine.Mesh mesh;
 	private int vertexCount = 10000;
 	private bool hasJobFromLastFrame = false;
 

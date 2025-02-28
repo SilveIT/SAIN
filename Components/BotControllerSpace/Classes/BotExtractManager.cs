@@ -12,6 +12,9 @@ using System.Collections;
 using HarmonyLib;
 using SAIN.Plugin;
 using UnityEngine.Profiling;
+using Aki.Reflection.Utils;
+using StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid;
+using static LocationSettingsClass;
 
 namespace SAIN.Components.BotController
 {
@@ -338,19 +341,39 @@ namespace SAIN.Components.BotController
 
         private void CheckTimeRemaining()
         {
-            TotalRaidTime = SPT.SinglePlayer.Utils.InRaid.RaidChangesUtil.OriginalEscapeTimeSeconds;
+            var netGame = Singleton<AbstractGame>.Instance;
+            //TotalRaidTime = netGame.GameTimer.SessionSeconds();
+            TotalRaidTime = RaidChangesUtil.OriginalEscapeTimeSeconds;
 
-            //if (Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
-            if (Singleton<AbstractGame>.Instance.GameTimer.Started())
+            if (netGame.GameTimer.Started())
             {
-                TimeRemaining = SPT.SinglePlayer.Utils.InRaid.RaidTimeUtil.GetRemainingRaidSeconds();
-                PercentageRemaining = SPT.SinglePlayer.Utils.InRaid.RaidTimeUtil.GetRaidTimeRemainingFraction() * 100;
+                //TimeRemaining = netGame.GameTimer.EscapeTimeSeconds();
+                TimeRemaining = RaidTimeUtil.GetRemainingRaidSeconds();
+                PercentageRemaining = RaidTimeUtil.GetRaidTimeRemainingFraction() * 100;
             }
             else
             {
-                TimeRemaining = SPT.SinglePlayer.Utils.InRaid.RaidChangesUtil.NewEscapeTimeSeconds;
-                PercentageRemaining = 100f * TimeRemaining / TotalRaidTime;
+                var tarkovApp = ClientAppUtils.GetClientApp() as TarkovApplication;
+                if (tarkovApp != null)
+                {
+                    TimeRemaining = RaidChangesUtil.NewEscapeTimeSeconds;
+                    PercentageRemaining = 100f* TimeRemaining / TotalRaidTime;
+                }
             }
+            
+            //TotalRaidTime = SPT.SinglePlayer.Utils.InRaid.RaidChangesUtil.OriginalEscapeTimeSeconds;
+
+            ////if (Aki.SinglePlayer.Utils.InRaid.RaidTimeUtil.HasRaidStarted())
+            //if (Singleton<AbstractGame>.Instance.GameTimer.Started())
+            //{
+            //    TimeRemaining = SPT.SinglePlayer.Utils.InRaid.RaidTimeUtil.GetRemainingRaidSeconds();
+            //    PercentageRemaining = SPT.SinglePlayer.Utils.InRaid.RaidTimeUtil.GetRaidTimeRemainingFraction() * 100;
+            //}
+            //else
+            //{
+            //    TimeRemaining = SPT.SinglePlayer.Utils.InRaid.RaidChangesUtil.NewEscapeTimeSeconds;
+            //    PercentageRemaining = 100f * TimeRemaining / TotalRaidTime;
+            //}
         }
     }
 }

@@ -3,7 +3,8 @@ using HarmonyLib;
 using SAIN.Preset.GlobalSettings;
 using System;
 using System.Collections.Generic;
-using FloatFunc = GClass817<float>;
+using FloatFunc = GClass760<float>;
+using InventoryEquipment = EquipmentClass;
 
 namespace SAIN.SAINComponent.Classes
 {
@@ -18,7 +19,8 @@ namespace SAIN.SAINComponent.Classes
             if (GlobalSettingsClass.Instance.General.BotWeightEffects)
             {
                 getSlots();
-				Traverse.Create(Person.Player.InventoryController.Inventory).Field<FloatFunc>("TotalWeight").Value = new FloatFunc(getBotTotalWeight);
+                //Property GClass2772_0 -> _inventoryController field
+                Traverse.Create(Person.Player.GClass2772_0.Inventory).Field<FloatFunc>("TotalWeight").Value = new FloatFunc(getBotTotalWeight);
 				Person.Player.Physical.EncumberDisabled = false;
             }
         }
@@ -40,9 +42,12 @@ namespace SAIN.SAINComponent.Classes
         {
         }
 
+        //public float method_11(IEnumerable<Slot> slots) => slots.Select<Slot, Item>((Func<Slot, Item>) (slot => slot.ContainedItem)).Sum<Item>(new Func<Item, float>(this.method_12));
+        //public float method_12(Item item) => item == null ? 0.0f : item.GetAllItems(new Predicate<ContainerCollection>(this.method_10)).Sum<Item>((Func<Item, float>) (x => x.Weight * (float) x.StackObjectsCount));
+
         private float getBotTotalWeight()
         {
-            float result = InventoryEquipment.smethod_1(_slots);
+            float result = Player.Equipment.method_11(_slots);
 			_slots.Clear();
             // Logger.LogWarning(result);
             return result;
