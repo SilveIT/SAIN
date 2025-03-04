@@ -327,11 +327,12 @@ namespace SAIN.SAINComponent
 
         private bool verifyBrain(PersonClass person)
         {
-            if (Info.Profile.IsPMC &&
-                person.AIInfo.BotOwner.Brain.BaseBrain.ShortName() != Brain.PMC.ToString()) {
-                Logger.LogAndNotifyError($"{BotOwner.name} is a PMC but does not have [PMC] Base Brain! Current Brain Assignment: [{person.AIInfo.BotOwner.Brain.BaseBrain.ShortName()}] : SAIN Server mod is either missing or another mod is overwriting it. Destroying SAIN for this bot...");
-                return false;
-            }
+            //TODO TEMPORARY FIX
+            //if (Info.Profile.IsPMC &&
+            //    person.AIInfo.BotOwner.Brain.BaseBrain.ShortName() != Brain.PMC.ToString()) {
+            //    Logger.LogAndNotifyError($"{BotOwner.name} is a PMC but does not have [PMC] Base Brain! Current Brain Assignment: [{person.AIInfo.BotOwner.Brain.BaseBrain.ShortName()}] : SAIN Server mod is either missing or another mod is overwriting it. Destroying SAIN for this bot...");
+            //    return false;
+            //}
             return true;
         }
 

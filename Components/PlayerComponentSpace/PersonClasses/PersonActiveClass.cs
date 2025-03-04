@@ -123,16 +123,23 @@ namespace SAIN.Components.PlayerComponentSpace.PersonClasses
 
         private bool checkGameObjectActive()
         {
-            GameObject gameObject = Player?.gameObject;
-            if (gameObject == null)
+            try
+            {
+                GameObject gameObject = Player?.gameObject;
+                if (gameObject == null)
+                {
+                    return false;
+                }
+                if (!Player.isActiveAndEnabled)
+                {
+                    return false;
+                }
+                return gameObject.activeInHierarchy;
+            }
+            catch
             {
                 return false;
             }
-            if (!Player.isActiveAndEnabled)
-            {
-                return false;
-            }
-            return gameObject.activeInHierarchy;
         }
 
         private void playerKilledOrNull()

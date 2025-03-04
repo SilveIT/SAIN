@@ -1,8 +1,10 @@
 ﻿using Comfort.Common;
+using Dissonance;
 using EFT;
 using UnityEngine;
 using SeasonController = WinterEventController;
 using ESeason = EWinterStatus;
+using StayInTarkov.Coop.SITGameModes;
 
 namespace SAIN.Components
 {
@@ -41,14 +43,22 @@ namespace SAIN.Components
             }
             _nextCheckWeatherTime = Time.time + 0.5f;
 
-            var gw = Singleton<GameWorld>.Instance;
-            if (gw.Class427_0 == null) {
-                return;
-            }
+            try
+            {
+                var gw = Singleton<GameWorld>.Instance;
+                if (gw?.Class427_0 == null)
+                {
+                    return;
+                }
 
-            Season = gw.Class427_0.Status;
-            Logger.LogDebug($"Got Season {Season}");
-            _weatherFound = true;
+                Season = gw.Class427_0.Status;
+                Logger.LogDebug($"Got Season {Season}");
+                _weatherFound = true;
+            }
+            catch
+            {
+                // whatever
+            }
         }
 
         private void findLocation()
@@ -61,7 +71,9 @@ namespace SAIN.Components
         private ELocation parseLocation()
         {
             ELocation Location = ELocation.None;
-            string locationString = GameWorld.GameWorld?.LocationId;
+            //string locationString = GameWorld.GameWorld?.LocationId;
+            string locationString = StayInTarkov.AkiSupport.Singleplayer.Utils.InRaid.RaidChangesUtil.LocationId;
+
             if (locationString.IsNullOrEmpty()) {
                 return Location;
             }
